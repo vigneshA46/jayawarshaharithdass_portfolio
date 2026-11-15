@@ -32,7 +32,7 @@ export default function Empire() {
                   <h3 className="mt-3 font-display text-[clamp(1.5rem,3.1vw,2.3rem)] leading-[1.05] text-ivory">{v.name}</h3>
                 </div>
                 {v.logoSrc ? (
-                  <img src={v.logoSrc} alt="" className="h-14 w-14 shrink-0 object-contain" />
+                  <img src={v.logoSrc} alt={`${v.name} logo`} className="h-[84px] w-auto max-w-[11rem] shrink-0 object-contain md:h-[100px]" style={{ filter: "drop-shadow(0 0 16px rgba(217,164,65,0.22))" }} />
                 ) : (
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center border border-dashed border-gold/50 text-center font-mono text-[8px] leading-tight tracking-wider text-gold/70 uppercase">Logo to be added</div>
                 )}

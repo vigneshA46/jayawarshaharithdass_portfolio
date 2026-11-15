@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Cinzel Black: wedge-serif capitals, the closest free match to the Jack Daniel's label lettering */
+.font-display { font-weight: 900; text-transform: uppercase; }
+
 @theme {
   --color-ink: #0a0a09;
   --color-charcoal: #151513;
@@ -8,7 +11,7 @@
   --color-ivory: #f5f1e8;
   --color-dim: #a9a498;
   --font-sans: "Inter Tight Variable", system-ui, sans-serif;
-  --font-display: "Alfa Slab One", Georgia, serif;
+  --font-display: "Cinzel Variable", "Trajan Pro", Georgia, serif;
   --font-cond: "Oswald Variable", "Arial Narrow", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
@@ -127,3 +130,36 @@ html.locked, html.locked body { overflow: hidden; }
 .fig-name { position: absolute; left: 50%; top: calc(var(--fh) * 0.2); width: 96vw; transform: translate(-50%, -50%); text-align: center; z-index: 2; pointer-events: none;
   -webkit-mask-image: radial-gradient(ellipse calc(var(--fh) * 0.105) calc(var(--fh) * 0.135) at 50% calc(50% + var(--fh) * 0.03), transparent 68%, #000 100%);
   mask-image: radial-gradient(ellipse calc(var(--fh) * 0.105) calc(var(--fh) * 0.135) at 50% calc(50% + var(--fh) * 0.03), transparent 68%, #000 100%); }
+
+/* ---------- Time & Word backgrounds ---------- */
+/* dial: a bowl-shaped ladder ring with a glowing pendulum "V"; the right arm sweeps once, slowly, as you scroll */
+.dial { opacity: clamp(0, calc(var(--p, 0) * 6), 1); }
+.dial-arm-r { transform: rotate(calc(-1 * var(--hand, -40deg))); transform-box: view-box; transform-origin: 500px 60px; }
+.dial-reveal { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--rev, 0)); }
+
+/* word seal: text ring that turns slowly with the scroll */
+.seal { opacity: clamp(0, calc(var(--p, 0) * 5), 1) }
+.seal-text { transform: rotate(calc(var(--frac, 0) * 80deg)); transform-box: view-box; transform-origin: 350px 350px; }
+.seal-dash { transform: rotate(calc(var(--frac, 0) * -50deg)); transform-box: view-box; transform-origin: 350px 350px; }
+.seal-draw { stroke-dasharray: 1; stroke-dashoffset: calc(1 - clamp(0, calc(var(--p, 0) * 3), 1)); }
+
+/* About slide: first half fades as the manifesto takes over; the portrait recedes */
+.about-one { opacity: calc(1 - clamp(0, calc((var(--p, 0) - 0.4) * 7), 1)); transform: translateY(calc(clamp(0, calc((var(--p, 0) - 0.4) * 7), 1) * -5vh)); filter: blur(calc(clamp(0, calc((var(--p, 0) - 0.4) * 7), 1) * 8px)); pointer-events: none; }
+.about-fig-dim { --base: 0.55; opacity: calc((1 - clamp(0, calc((var(--p, 0) - 0.42) * 6), 1) * 0.78) * var(--base)); }
+@media (min-width: 768px) { .about-fig-dim { --base: 0.92; } }
+
+/* ---------- CEO works: floating tiles and a fire trail ---------- */
+.cw-world { transform-style: preserve-3d; transform: rotateY(calc(var(--mx, 0) * 3deg)) rotateX(calc(var(--my, 0) * -2deg)); }
+.cw-tile { --a: clamp(0, calc((var(--p, 0) - 0.02 - var(--k, 0) * 0.035) * 10), 1);
+  position: absolute; left: var(--lm); top: var(--tm); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  transform: translate(-50%, -50%) translate3d(calc(var(--mx, 0) * var(--par, 0) * 1px), 0, var(--z, 0px)) rotateY(var(--ry, 0deg)) scale(calc(0.7 + var(--a) * 0.3));
+  opacity: var(--a); animation: cw-float 7s ease-in-out infinite; animation-delay: calc(var(--k, 0) * -0.7s); }
+@keyframes cw-float { 50% { translate: 0 -9px; } }
+@media (min-width: 768px) { .cw-tile { left: var(--l); top: var(--t); } }
+.cw-box { border: 1px solid rgba(217, 164, 65, calc(0.3 + var(--g, 0) * 0.7)); border-radius: 20px;
+  background: linear-gradient(160deg, #221d15, #0b0a08);
+  box-shadow: 0 0 calc(var(--g, 0) * 44px) rgba(255, 110, 40, calc(var(--g, 0) * 0.85)), inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 14px 30px rgba(0, 0, 0, 0.5);
+  color: rgb(calc(217 + var(--g, 0) * 38), calc(164 - var(--g, 0) * 40), calc(65 - var(--g, 0) * 20)); }
+.fire-head { position: absolute; z-index: 13; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(circle, #fff 0%, #ffe0a0 22%, #ff8a2a 48%, rgba(255, 70, 20, 0.35) 70%, transparent 100%); }
+@media (prefers-reduced-motion: reduce) { .cw-tile { animation: none; } }

@@ -7,5 +7,5 @@ export type PhotoKind = keyof typeof person.photos;
 export default function Figure({ kind, className = "" }: { kind: PhotoKind; className?: string }) {
   const src = person.photos[kind];
   if (!src) return <Portrait className={className} />;
-  return <img src={src} alt="" aria-hidden draggable={false} className={`photo-feather ${className}`} />;
+  return <img src={src} alt="" aria-hidden draggable={false} className={`${src.includes("standing-cut") ? "" : "photo-feather"} ${className}`} />;
 }

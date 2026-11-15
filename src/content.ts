@@ -10,15 +10,28 @@ export const person = {
   motto: "Time and Word Build Empire.",
   // Sample portraits for now; swap the files in /public/people (or set a path to null to fall back to the silhouette).
   photos: {
-    standing: "/people/standing.webp" as string | null,
-    close: "/people/close.webp" as string | null,
+    standing: "/people/standing-cut.webp" as string | null,
+    close: "/people/close-cut.webp" as string | null,
     profile: "/people/profile.webp" as string | null,
     seated: "/people/seated.webp" as string | null,
   },
   photoSrc: null as string | null,
-  website: null as string | null, // "To be added" in the PDF
-  email: null as string | null, // "To be added" in the PDF
   mainSite: "https://www.jdcosmopolitan.com",
+  emails: [
+    ["JD COSMOPOLITAN", "ceo@jdcosmopolitan.com"],
+    ["VENTURE KARTS", "ceo@venturekarts.com"],
+    ["Personal", "jeyawarshaharithdass@gmail.com"],
+  ] as [string, string][],
+  phones: [
+    ["9345350699", "tel:9345350699"],
+    ["+91 93458 24728", "tel:+919345824728"],
+  ] as [string, string][],
+  links: [
+    ["LinkedIn", "https://www.linkedin.com/in/jeyawarsha-harith-dass-jd-b6401a377"],
+    ["WhatsApp", "https://wa.me/message/LOVDTRYQNEYGA1"],
+    ["Instagram", "https://www.instagram.com/jeyawarshaharith_dass"],
+    ["Instagram · JD COSMOPOLITAN", "https://www.instagram.com/jd_cosmopolitan"],
+  ] as [string, string][],
 };
 
 export const about = [
@@ -46,7 +59,7 @@ export const ventures = {
     tag: "Global platform venture",
     text: "A vision to connect people, businesses, products and markets through one global platform.",
     items: ["Global B2B marketplace", "Product sourcing", "Logistics connectivity", "AI-powered trade intelligence", "International business network"],
-    logoSrc: null as string | null, // logo to be supplied
+    logoSrc: "/brand/venture-karts.webp" as string | null,
   },
   sovereign: {
     no: "03",
@@ -55,7 +68,7 @@ export const ventures = {
     tag: "Subsidiary of JD COSMOPOLITAN",
     text: "A subsidiary of JD COSMOPOLITAN, focused on event, property and digital service opportunities.",
     items: ["Event Management", "Real Estate", "Digital Marketing", "NRA Bridge Property"],
-    logoSrc: null as string | null,
+    logoSrc: "/brand/jd-sovereign.webp" as string | null,
   },
 };
 
@@ -94,3 +107,29 @@ export const mission = {
 export const closing = ["Build with vision.", "Lead with discipline.", "Create a legacy."];
 
 export const rail = ["Cover", "About", "JD COSMOPOLITAN", "VENTURE KARTS", "JD SOVEREIGN", "Vision", "Philosophy", "Focus", "Mission", "Contact"];
+
+export const ceoPhilosophy = {
+  eyebrow: "CEO Philosophy",
+  quote: "Leadership is not just about holding a position. It is about taking responsibility, creating direction and turning vision into reality.",
+  highlight: ["responsibility,", "direction", "vision", "reality."],
+};
+
+export const ceoWorks = {
+  eyebrow: "04 — CEO Works & Responsibilities",
+  headline: ["Executive Leadership.", "Strategic Decisions.", "Business Growth."],
+  text: "As Chairman & CEO, my role is to establish the direction of the business, lead strategic decisions, build professional relationships and guide the organisation towards sustainable growth.",
+  sub: "Core CEO Responsibilities",
+  // headings only, as requested (no definitions)
+  items: [
+    "Strategic Planning",
+    "Corporate Leadership",
+    "Business Development",
+    "Strategic Partnerships",
+    "Operations Oversight",
+    "Financial Oversight",
+    "Decision Making",
+    "Team Building",
+    "Risk & Compliance Oversight",
+    "Expansion & Innovation",
+  ],
+};

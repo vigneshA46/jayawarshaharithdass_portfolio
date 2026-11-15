@@ -26,15 +26,33 @@ export default function Contact() {
                 <li>JD SOVEREIGN — Subsidiary of JD COSMOPOLITAN</li>
               </ul>
             </Reveal>
-            <Reveal className="grid grid-cols-2 gap-4 border-t border-black/25 pt-5 text-sm" delay={0.15}>
+            <Reveal className="grid gap-5 border-t border-black/25 pt-5 text-sm sm:grid-cols-2" delay={0.15}>
               <div>
-                <p className="font-mono text-[10px] tracking-[0.3em] uppercase opacity-70">Official website</p>
-                <p className="mt-1">{person.website ? <a href={person.website} className="underline">{person.website}</a> : "To be added"}</p>
+                <p className="font-mono text-[10px] tracking-[0.3em] uppercase opacity-70">Email</p>
+                <ul className="mt-2 space-y-2">
+                  {person.emails.map(([label, addr]) => (
+                    <li key={addr}>
+                      <span className="block font-mono text-[9px] tracking-[0.22em] uppercase opacity-60">{label}</span>
+                      <a href={`mailto:${addr}`} className="font-medium break-all underline underline-offset-4">{addr}</a>
+                    </li>
+                  ))}
+                </ul>
               </div>
               <div>
-                <p className="font-mono text-[10px] tracking-[0.3em] uppercase opacity-70">Official email</p>
-                <p className="mt-1">{person.email ? <a href={`mailto:${person.email}`} className="underline">{person.email}</a> : "To be added"}</p>
+                <p className="font-mono text-[10px] tracking-[0.3em] uppercase opacity-70">Phone</p>
+                <ul className="mt-2 space-y-2">
+                  {person.phones.map(([label, href]) => (
+                    <li key={href}>
+                      <a href={href} className="font-medium underline underline-offset-4">{label}</a>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </Reveal>
+            <Reveal className="flex flex-wrap gap-2" delay={0.18}>
+              {person.links.map(([label, href]) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="border border-black/60 px-3 py-2 font-cond text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors hover:bg-[#15110a] hover:text-champagne">{label}</a>
+              ))}
             </Reveal>
             <Reveal delay={0.2}>
               <a href={person.mainSite} className="inline-block bg-[#15110a] px-6 py-3 font-cond text-[12px] font-semibold tracking-[0.22em] text-champagne uppercase">Visit JD COSMOPOLITAN →</a>

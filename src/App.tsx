@@ -4,7 +4,8 @@ import Intro from "./ui/Intro";
 import Cover from "./ui/Cover";
 import Statement from "./ui/Statement";
 import About from "./ui/About";
-import Quote from "./ui/Quote";
+import CeoPhilosophy from "./ui/CeoPhilosophy";
+import CeoWorks from "./ui/CeoWorks";
 import Empire from "./ui/Empire";
 import Philosophy from "./ui/Philosophy";
 import Vision from "./ui/Vision";
@@ -53,7 +54,8 @@ export default function App() {
         <Cover />
         <Statement />
         <About />
-        <Quote />
+        <CeoPhilosophy />
+        <CeoWorks />
         <Empire />
         <Philosophy />
         <Vision />

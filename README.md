@@ -18,7 +18,8 @@ npm run build    # outputs dist/
 Edit `src/content.ts`:
 - `person.photoSrc`: portrait (shown in the About section)
 - `ventures.karts.logoSrc` and `ventures.sovereign.logoSrc`: venture logos
-- `person.website`, `person.email`: both "To be added" in the PDF
+- Contact details live in `person.emails`, `person.phones` and `person.links`
+- Venture logos: `public/brand/venture-karts.webp` and `public/brand/jd-sovereign.webp`
 
 ## Structure
 - `src/ui/`: one file per scene (Cover, Statement, About, Quote, Empire, Philosophy, Vision, Focus, Mission, Contact)
