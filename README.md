@@ -1,6 +1,6 @@
 # Jeyawarsharith Dass: Executive Portfolio
 
-Cinematic 3D scroll portfolio. React + Tailwind CSS v4 + Three.js (`@react-three/fiber`), smooth scroll with Lenis.
+Cinematic scroll portfolio: huge gold type, a silhouette stand-in for his portrait (swap in a transparent cut-out via `person.photoSrc`), a 3D venture carousel and a light-dust backdrop. React + Tailwind CSS v4 + Three.js (`@react-three/fiber`), smooth scroll with Lenis.
 All copy comes from the client's "Final Executive Portfolio" PDF.
 
 ## Run
@@ -21,6 +21,6 @@ Edit `src/content.ts`:
 - `person.website`, `person.email`: both "To be added" in the PDF
 
 ## Structure
-- `src/scene/layout.ts`: where each 3D object sits and the camera pose per section
-- `src/scene/objects.tsx`: monolith, rings, globe, network, tower, pillars, ripples, seal
-- `src/ui/Sections.tsx`: page copy and layout
+- `src/ui/`: one file per scene (Cover, Statement, About, Quote, Empire, Philosophy, Vision, Focus, Mission, Contact)
+- `src/scene/Backdrop.tsx`: the 3D gold dust and light shafts
+- `src/scroll.ts`: scroll progress drives each scene through CSS variables

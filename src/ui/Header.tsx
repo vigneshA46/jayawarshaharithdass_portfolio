@@ -1,27 +1,43 @@
-import { person, rail } from "../content";
-import { jump } from "../scroll";
+import { useEffect, useState } from "react";
+import { person } from "../content";
+import { scrollToEl } from "../scroll";
 
-export default function Header({ active }: { active: number }) {
+const links: [string, string][] = [
+  ["About", "about"],
+  ["Empire", "empire"],
+  ["Philosophy", "philosophy"],
+  ["Contact", "contact"],
+];
+
+export default function Header() {
+  // Over the gold contact slab the bar flips to dark ink so it stays readable.
+  const [onSlab, setOnSlab] = useState(false);
+  useEffect(() => {
+    const check = () => {
+      const el = document.querySelector<HTMLElement>("#contact .slab");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      setOnSlab(r.top < 50 && r.bottom > 50);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
+  }, []);
   return (
-    <>
-      <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between px-6 py-5 md:px-10">
-        <a href={person.mainSite} className="flex items-center gap-3 text-[11px] tracking-[0.3em] text-ivory/90 uppercase" aria-label="JD COSMOPOLITAN">
-          <img src="/brand/jd-logo.webp" alt="" width={40} height={40} className="h-10 w-10" />
-          <span className="hidden sm:inline">JD COSMOPOLITAN</span>
-        </a>
-        <span className="font-mono text-[11px] tracking-widest text-gold">
-          {String(active + 1).padStart(2, "0")} / {String(rail.length).padStart(2, "0")}
-        </span>
-      </header>
-      <nav aria-label="Sections" className="fixed top-1/2 right-4 z-30 hidden -translate-y-1/2 flex-col gap-3 md:flex">
-        {rail.map((label, i) => (
-          <button key={label} type="button" onClick={() => jump(i)} aria-label={label} aria-current={active === i} className="group relative flex h-3 w-3 items-center justify-center">
-            <span className={`block rounded-full transition-all ${active === i ? "h-2.5 w-2.5 bg-gold" : "h-1.5 w-1.5 bg-ivory/35 group-hover:bg-champagne"}`} />
-            <span className="pointer-events-none absolute right-6 rounded bg-ink/80 px-2 py-1 text-[10px] tracking-widest whitespace-nowrap text-champagne uppercase opacity-0 transition-opacity group-hover:opacity-100">{label}</span>
-          </button>
-        ))}
+    <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-4 md:px-10 md:py-6">
+      <a href={person.mainSite} aria-label="JD COSMOPOLITAN" className="flex items-center gap-3">
+        <img src="/brand/jd-logo.webp" alt="" width={44} height={44} className="h-10 w-10 md:h-11 md:w-11" />
+      </a>
+      <nav aria-label="Main" className="flex items-center gap-5 md:gap-9">
+        <ul className="hidden items-center gap-9 md:flex">
+          {links.map(([l, id]) => (
+            <li key={l}>
+              <button type="button" onClick={() => scrollToEl(id)} className={`font-cond text-[13px] tracking-[0.22em] uppercase transition-colors ${onSlab ? "text-[#15110a] hover:text-black" : "text-ivory/80 hover:text-gold"}`}>{l}</button>
+            </li>
+          ))}
+        </ul>
+        <a href={person.mainSite} className={`font-cond px-4 py-2 text-[12px] font-semibold tracking-[0.2em] uppercase md:px-5 ${onSlab ? "bg-[#15110a] text-champagne" : "btn-gold"}`}>JD COSMOPOLITAN</a>
       </nav>
-      <div aria-hidden className="pointer-events-none fixed inset-3 z-20 border border-gold/35 md:inset-4" />
-    </>
+    </header>
   );
 }

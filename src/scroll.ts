@@ -5,7 +5,7 @@ let lenis: Lenis | null = null;
 
 export function startScroll() {
   if (view.reduced) return () => {};
-  lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
   let raf = 0;
   const loop = (t: number) => {
     lenis?.raf(t);
@@ -19,51 +19,52 @@ export function startScroll() {
   };
 }
 
-export function jump(i: number) {
-  const el = document.querySelectorAll<HTMLElement>("[data-stop]")[i];
+export function scrollToEl(id: string) {
+  const el = document.getElementById(id);
   if (!el) return;
-  const y = el.getBoundingClientRect().top + scrollY - (innerHeight - el.offsetHeight) / 2;
-  if (lenis) lenis.scrollTo(Math.max(0, y), { duration: 1.6 });
-  else window.scrollTo({ top: Math.max(0, y) });
+  const y = el.getBoundingClientRect().top + scrollY;
+  if (lenis) lenis.scrollTo(y, { duration: 1.6 });
+  else window.scrollTo({ top: y, behavior: "smooth" });
 }
 
-/** Maps the scroll position onto a fractional section index for the 3D camera. */
-export function trackStops(onActive: (i: number) => void) {
-  const stops = Array.from(document.querySelectorAll<HTMLElement>("[data-stop]"));
-  const pillars = Array.from(document.querySelectorAll<HTMLElement>("[data-pillar]"));
-  let last = -1;
-  const update = () => {
-    const vh = innerHeight;
-    const c = stops.map((e) => {
-      const r = e.getBoundingClientRect();
-      return r.top + r.height / 2 - vh / 2;
-    });
-    let f = 0;
-    if (c[0] <= 0) {
-      f = stops.length - 1;
-      for (let i = 0; i < c.length - 1; i++) {
-        if (c[i] <= 0 && c[i + 1] > 0) {
-          f = i + -c[i] / (c[i + 1] - c[i]);
-          break;
-        }
-      }
-    }
-    view.f = f;
-    view.pillar = pillars.filter((p) => {
-      const r = p.getBoundingClientRect();
-      return r.top + r.height / 2 < vh * 0.62;
-    }).length - 1;
-    const a = Math.round(f);
-    if (a !== last) {
-      last = a;
-      onActive(a);
-    }
+/** Smooths pointer position once for the whole page; scenes read view.mx / view.my. */
+export function startPointer() {
+  const pointer = { x: 0, y: 0 };
+  const onMove = (e: PointerEvent) => {
+    pointer.x = (e.clientX / innerWidth) * 2 - 1;
+    pointer.y = (e.clientY / innerHeight) * 2 - 1;
   };
-  update();
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
+  window.addEventListener("pointermove", onMove);
+  let raf = 0;
+  const tick = () => {
+    if (!view.reduced) {
+      view.mx += (pointer.x - view.mx) * 0.06;
+      view.my += (pointer.y - view.my) * 0.06;
+    }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
   return () => {
-    window.removeEventListener("scroll", update);
-    window.removeEventListener("resize", update);
+    cancelAnimationFrame(raf);
+    window.removeEventListener("pointermove", onMove);
   };
+}
+
+/** Writes this scene's smoothed scroll progress (and the pointer) onto its stage as CSS variables. `main` also feeds the 3D backdrop. */
+export function driveStage(stage: HTMLElement, section: HTMLElement, main = false, onFrame?: (p: number, stage: HTMLElement) => void) {
+  let p = 0;
+  let raf = 0;
+  const tick = () => {
+    const r = section.getBoundingClientRect();
+    const target = Math.min(Math.max(-r.top / Math.max(1, r.height - innerHeight), 0), 1);
+    p += (target - p) * (view.reduced ? 1 : 0.14);
+    if (main) view.p = p;
+    stage.style.setProperty("--p", p.toFixed(4));
+    stage.style.setProperty("--mx", view.mx.toFixed(4));
+    stage.style.setProperty("--my", view.my.toFixed(4));
+    onFrame?.(p, stage);
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+  return () => cancelAnimationFrame(raf);
 }

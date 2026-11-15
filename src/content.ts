@@ -8,7 +8,14 @@ export const person = {
   lines: ["Building Businesses.", "Connecting Markets.", "Creating a Legacy."],
   ventures: "Three ventures. One vision.",
   motto: "Time and Word Build Empire.",
-  photoSrc: null as string | null, // portrait to be supplied by the client
+  // Sample portraits for now; swap the files in /public/people (or set a path to null to fall back to the silhouette).
+  photos: {
+    standing: "/people/standing.webp" as string | null,
+    close: "/people/close.webp" as string | null,
+    profile: "/people/profile.webp" as string | null,
+    seated: "/people/seated.webp" as string | null,
+  },
+  photoSrc: null as string | null,
   website: null as string | null, // "To be added" in the PDF
   email: null as string | null, // "To be added" in the PDF
   mainSite: "https://www.jdcosmopolitan.com",
