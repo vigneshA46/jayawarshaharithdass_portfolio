@@ -36,7 +36,11 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <a href={person.mainSite} className={`font-cond px-4 py-2 text-[12px] font-semibold tracking-[0.2em] uppercase md:px-5 ${onSlab ? "bg-[#15110a] text-champagne" : "btn-gold"}`}>JD COSMOPOLITAN</a>
+        <div className="flex items-center gap-1.5 md:gap-2">
+          {[["JD COSMOPOLITAN", person.mainSite], ["VENTURE KARTS", person.kartsSite]].map(([label, href]) => (
+            <a key={label} href={href} className={`font-cond px-2.5 py-2 text-[10px] font-semibold tracking-[0.1em] whitespace-nowrap uppercase md:px-5 md:text-[12px] md:tracking-[0.2em] ${onSlab ? "bg-[#15110a] text-champagne" : "btn-gold"}`}>{label}</a>
+          ))}
+        </div>
       </nav>
     </header>
   );

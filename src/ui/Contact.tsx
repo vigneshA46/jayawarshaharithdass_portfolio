@@ -54,8 +54,9 @@ export default function Contact() {
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="border border-black/60 px-3 py-2 font-cond text-[11px] font-semibold tracking-[0.18em] uppercase transition-colors hover:bg-[#15110a] hover:text-champagne">{label}</a>
               ))}
             </Reveal>
-            <Reveal delay={0.2}>
+            <Reveal className="flex flex-wrap gap-3" delay={0.2}>
               <a href={person.mainSite} className="inline-block bg-[#15110a] px-6 py-3 font-cond text-[12px] font-semibold tracking-[0.22em] text-champagne uppercase">Visit JD COSMOPOLITAN →</a>
+              <a href={person.kartsSite} className="inline-block bg-[#15110a] px-6 py-3 font-cond text-[12px] font-semibold tracking-[0.22em] text-champagne uppercase">Visit VENTURE KARTS →</a>
             </Reveal>
           </div>
         </div>

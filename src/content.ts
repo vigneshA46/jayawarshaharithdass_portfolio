@@ -17,6 +17,7 @@ export const person = {
   },
   photoSrc: null as string | null,
   mainSite: "https://www.jdcosmopolitan.com",
+  kartsSite: "https://venturekarts.com",
   emails: [
     ["JD COSMOPOLITAN", "ceo@jdcosmopolitan.com"],
     ["VENTURE KARTS", "ceo@venturekarts.com"],
